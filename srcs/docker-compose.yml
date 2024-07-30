@@ -1,0 +1,27 @@
+services:
+
+  nginx: 
+    build: ./requirements/nginx
+    container_name: nginx
+    ports: 
+      - "443:443"
+    networks: 
+      - incept_net
+    volumes:
+      - incept_vol:/var/www/html/
+  wordpress: 
+    build: ./requirements/wordpress
+    container_name: wordpress
+    networks:
+      - incept_net
+    volumes:
+      - incept_vol:/var/www/html/
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+
+networks:
+  incept_net:
+
+volumes:
+  incept_vol:

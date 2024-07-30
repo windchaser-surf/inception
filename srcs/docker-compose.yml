@@ -1,5 +1,4 @@
 services:
-
   nginx: 
     build: ./requirements/nginx
     container_name: nginx
@@ -7,6 +6,8 @@ services:
       - "443:443"
     networks: 
       - incept_net
+    depends_on:
+      - wordpress
     volumes:
       - incept_vol:/var/www/html/
   wordpress: 
@@ -16,12 +17,22 @@ services:
       - incept_net
     volumes:
       - incept_vol:/var/www/html/
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
-
+    networks:
+      - incept_net
+    env_file:
+      - .env
+    volumes:
+      - incept_db:/var/lib/mysql/
 networks:
   incept_net:
 
 volumes:
   incept_vol:
+  incept_db:

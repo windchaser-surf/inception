@@ -13,6 +13,8 @@ RUN wget https://wordpress.org/latest.tar.gz && \
 COPY    ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY    ./conf/wp-config.php /var/www/html/wordpress/wp-config.php 
 
+RUN chown -R www-data:www-data /var/www/html/wordpress
+
 EXPOSE 9000
 
 CMD ["systemctl", "start", "php8.2-fpm"]

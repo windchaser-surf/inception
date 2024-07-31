@@ -5,6 +5,8 @@
 # this is read by the standalone daemon and embedded servers
 [server]
 
+init_file = /etc/mysql/init.sh
+
 # this is only for the mysqld standalone daemon
 [mysqld]
 
@@ -24,7 +26,7 @@ basedir                 = /usr
 
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
-bind-address            = 0.0.0.0
+bind-address            = mariadb
 
 #
 # * Fine Tuning

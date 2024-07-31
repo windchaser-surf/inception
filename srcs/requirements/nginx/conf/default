@@ -20,11 +20,11 @@ server {
 
         server_name _;
 
-        location / {
+        #location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                try_files $uri $uri/ =404;
-        }
+                #try_files $uri $uri/ =404;
+        #}
 
         # pass PHP scripts to FastCGI server
         #
@@ -34,7 +34,12 @@ server {
         #       # With php-fpm (or other unix sockets):
         #       fastcgi_pass unix:/run/php/php7.4-fpm.sock;
         #       # With php-cgi (or other tcp sockets):
+                include fastcgi_params;
                fastcgi_pass wordpress:9000;
+               fastcgi_param DB_NAME "$DB_NAME";
+               fastcgi_param DB_USER "$DB_USER";
+               fastcgi_param DB_PW "$DB_PW";
+
         }
 
         # deny access to .htaccess files, if Apache's document root

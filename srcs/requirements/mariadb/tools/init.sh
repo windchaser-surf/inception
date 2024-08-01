@@ -1,4 +1,4 @@
-echo "STARTING INIT SCRIPT!"
+echo "MariaDB started!"
 
 mysql -u root << EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;

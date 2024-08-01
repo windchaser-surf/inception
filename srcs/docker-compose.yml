@@ -20,7 +20,8 @@ services:
     volumes:
       - incept_html:/var/www/html/
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     env_file:
       - .env
   mariadb:
@@ -32,6 +33,12 @@ services:
       - .env
     volumes:
       - incept_db:/var/lib/mysql/
+    healthcheck:
+      test: ["CMD-SHELL", "/etc/mysql/healthcheck.sh"]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
 networks:
   incept_net:
 

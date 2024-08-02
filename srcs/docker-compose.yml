@@ -12,6 +12,7 @@ services:
       - wordpress
     volumes:
       - incept_html:/var/www/html/
+    restart: always
   wordpress: 
     build: ./requirements/wordpress
     container_name: wordpress
@@ -24,6 +25,7 @@ services:
         condition: service_healthy
     env_file:
       - .env
+    restart: always
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
@@ -39,6 +41,7 @@ services:
       timeout: 5s
       retries: 3
       start_period: 10s
+    restart: always
 networks:
   incept_net:
 

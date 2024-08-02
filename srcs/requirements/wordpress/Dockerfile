@@ -1,20 +1,16 @@
 FROM debian:latest
 
-RUN apt-get update && apt-get -y upgrade &&\
-    apt-get install -y wget tar php-fpm php-mysql systemctl
+RUN apt-get update && apt-get upgrade &&\
+    apt-get install -y wget php-mysql php-fpm
 
-WORKDIR /var/www/html/
-
-
-RUN wget https://wordpress.org/latest.tar.gz && \
-    tar -xvzf latest.tar.gz && \
-    rm latest.tar.gz 
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar &&\
+    chmod +x wp-cli.phar && \
+    mv wp-cli.phar /usr/local/bin/wp
 
 COPY    ./conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
-COPY    ./conf/wp-config.php /var/www/html/wordpress/wp-config.php 
+COPY ./tools/init.sh /init.sh
 
-RUN chown -R www-data:www-data /var/www/html/wordpress
+WORKDIR /var/www/html/wordpress
 
-EXPOSE 9000
 
-CMD ["systemctl", "start", "php8.2-fpm"]
+CMD ["/bin/bash", "/init.sh"]

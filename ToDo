@@ -1,8 +1,8 @@
-- Configure wp-install pages! 
+- Configure wp-install pages!           DONE
 - Change the ::latest tags from debian => specify 
-- implemnet a redis cache server
-- one admin user for and one user with lower access 
-- check if everything will be automatically set up when you run the docker! 
-- set wp_debug mode to false
-/wp-admin/install.php
-wp-admin/install.php?step=1 => nextside! 
+- implemnet a redis cache server DONE
+- one admin user for and one user with lower access DONE
+- check if everything will be automatically set up when you run the docker! DONE 
+- set wp_debug mode to false DONE  
+- autorestart after crash! DONE
+- set up volume for redis! 

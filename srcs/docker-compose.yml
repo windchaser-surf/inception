@@ -47,6 +47,13 @@ services:
     container_name: redis
     networks:
       - incept_net
+  adminer: 
+    build: requirements/adminer
+    container_name: adminer
+    networks: 
+      - incept_net
+    volumes: 
+      - incept_html:/var/www/html/
 
 networks:
   incept_net:

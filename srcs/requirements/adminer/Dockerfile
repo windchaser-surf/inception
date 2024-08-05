@@ -7,6 +7,9 @@ RUN apt-get update && apt-get -y upgrade && \
 
 WORKDIR /var/www/html/adminer
 
-RUN wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
+RUN wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -O index.php
 
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html/adminer"]
+EXPOSE 8080
+
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "/var/www/html/adminer", "daemon off;"]    
+# -S specifify a built in Server and where to listen -t specify the root. 

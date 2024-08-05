@@ -14,21 +14,28 @@ server {
         ssl_certificate_key /etc/nginx/ssl/nginx.key;
 
 # currently root for adminer
-        root /var/www/html/;
+      #  root /var/www/html/;
 # currently root for wordpress
-        #root /var/www/html/wordpress;
+        root /var/www/html/wordpress;
 
         # Add index.php to the list if you are using PHP
         index index.php index.html index.htm index.nginx-debian.html;
 
         server_name _;
 
-        #location / {
+        location / {
                 # First attempt to serve request as file, then
                 # as directory, then fall back to displaying a 404.
-                #try_files $uri $uri/ =404;
-        #}
-
+                try_files $uri $uri/ =404;
+        }
+        location /adminer {
+                #root /var/www/html/adminer/;
+                proxy_pass http://adminer:8080;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header X-Forwarded-Proto $scheme;
+        }
         # pass PHP scripts to FastCGI server
         #
         location ~ \.php$ {
@@ -39,9 +46,6 @@ server {
         #       # With php-cgi (or other tcp sockets):
                include fastcgi_params;
                fastcgi_pass wordpress:9000;
-               fastcgi_param DB_NAME "$DB_NAME";
-               fastcgi_param DB_USER "$DB_USER";
-               fastcgi_param DB_PW "$DB_PW";
         }
 
         # deny access to .htaccess files, if Apache's document root

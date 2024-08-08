@@ -47,6 +47,7 @@ services:
     container_name: redis
     networks:
       - incept_net
+    restart: always
   adminer: 
     build: requirements/adminer
     container_name: adminer
@@ -54,6 +55,20 @@ services:
       - incept_net
     volumes: 
       - incept_html:/var/www/html/
+    restart: always
+  ftp: 
+    build: ./requirements/ftp
+    container_name: ftp
+    env_file:
+      - .env
+    ports:
+      - "21:21"
+      - "10000-10100:10000-10100"
+    networks:
+      - incept_net
+    volumes:
+      - incept_html:/var/www/html/
+    restart: always
 
 networks:
   incept_net:

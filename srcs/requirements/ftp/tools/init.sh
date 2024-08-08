@@ -1,13 +1,13 @@
 #!/bin/bash
 
-adduser --disabled-password felix
-mkdir /home/felix/ftp
+adduser --disabled-password $FTP_USER
+mkdir -p /var/www/html
+mkdir -p /var/run/vsftpd/empty/
+echo $FTP_USER:$FTP_PW| chpasswd
 
-chown nobody:nogroup /home/felix/ftp
-chmod a-w /home/felix/ftp
-mkdir /home/felix/ftp/files
-chown felix:felix /home/felix/ftp/files
+chown $FTP_USER:$FTP_USER /var/www/html/
+echo "$FTP_USER" | tee -a /etc/vsftpd.userlist
 
-echo "vsftpd test file" | sudo tee /home/felix/ftp/files/test.txt
-
-/usr/sbin/vsftpd /etc/vsftpd.conf
+if (/usr/sbin/vsftpd /etc/vsftpd.conf) then 
+    echo "SOMETHING GOES WRONT"
+fi

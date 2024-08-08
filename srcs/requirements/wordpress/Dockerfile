@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:12
 
 RUN apt-get update && apt-get upgrade &&\
     apt-get install -y wget php-mysql php-fpm

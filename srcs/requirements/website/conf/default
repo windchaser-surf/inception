@@ -1,0 +1,12 @@
+server
+{
+    listen 8090;
+    root /var/www/html/portfolio;
+
+    index index.html;
+    server_name felixportfolio.de;
+    location / {
+        try_files $uri $uri/ =404;
+    }
+    
+}

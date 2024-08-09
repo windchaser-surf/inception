@@ -1,7 +1,7 @@
 FROM debian:12
 
 RUN apt-get update && \
-    apt-get install -y nginx openssl systemctl gettext-base
+    apt-get install -y nginx openssl
 
 RUN mkdir -p /etc/nginx/ssl
 

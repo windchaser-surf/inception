@@ -69,7 +69,12 @@ services:
     volumes:
       - incept_html:/var/www/html/
     restart: always
-
+  website:
+    build: ./requirements/website
+    container_name: website
+    ports:
+      - "8090:8090"
+    restart: always
 networks:
   incept_net:
 
@@ -80,8 +85,6 @@ volumes:
       type: none
       o: bind
       device: /home/fwechsle/data/incept_html
-
-
   incept_db:
     driver: local
     driver_opts: 
